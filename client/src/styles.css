@@ -1,0 +1,296 @@
+.container {
+  right: 15%;
+  position: absolute;
+  top: 0;
+  margin-left: 45px;
+  width: 376px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  line-height: 22px;
+  padding-left: 24px;
+  padding-right: 24px;
+  margin: 0px;
+  box-sizing: border-box;
+  border: 1px solid #e4e4e4;
+  background-color: #ffffff;
+  display: block;
+}
+
+.component {
+  margin: 10px 10px;
+}
+
+.border {
+  border-bottom: 1px solid #DBDBDB;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.font {
+  word-wrap: break-word;
+  font-size: 22px;
+  line-height: 28px;
+  letter-spacing: -0.2px;
+  color: #484848;
+  font-weight: 700;
+}
+
+
+/* loading dots  */
+@keyframes dots-pulse {
+  0% {
+    opacity: 0.1; }
+  15% {
+    opacity: 1; }
+  100% {
+    opacity: 0.1; } }
+
+
+.dots .dot {
+  border-radius: 100%;
+  display: inline-block;
+  margin-right: .5em;
+  background-color: #008489;
+  width: 0.5em;
+  height: 0.5em;
+  animation-name: dots-pulse;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite; 
+}
+
+.dotContainer {
+  text-align: center;
+}
+
+  .dots .dot:last-child {
+    margin-right: 0; }
+
+  .dot:first-of-type {
+    animation-delay: -0.5s;
+  }
+  .dot:nth-of-type(2) {
+    animation-delay: -0.3s;
+  }
+  .dot:nth-of-type(3) {
+    animation-delay: -0.1s;
+  }
+
+
+
+/* guest drop down menu  */
+.guestMenu {
+    font-size: 17px;
+    background: #ffffff;
+    text-align: left;
+    border-radius: 2px;
+    padding: 8px;
+    line-height: normal;
+    display: block;
+    width: 100%;
+    border: 1px solid #DBDBDB;
+    margin-bottom: 10px;
+}
+
+.menu {
+  height: 260px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.07);
+  border-radius: 3px;
+  width: 100%;
+  min-width: 280px;
+  text-align: left;
+  padding: 0 16px;
+  margin-bottom: 16px;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 2;
+  left: 0px;
+  display: block;
+  color: #484848;
+  font-size: 17px;
+  font-weight: 300;
+  letter-spacing: 0.2px;
+  line-height: 22px;
+  border-top: 2px solid #008489;
+}
+
+  #arrow, .close, .price{
+    float: right;
+  }
+
+  .guestType {    
+    margin-top: 16px;
+    margin-bottom: 16px;
+    display: table;
+    width: 100%;
+    }
+
+  .guest {
+    display: table-cell;
+    width: 100%;
+    vertical-align: middle;
+  }
+
+  .guestNumber {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    font-weight: normal;
+    margin: 0px;
+    font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+    font-size: 19px;
+    line-height: 24px;
+    letter-spacing: undefined;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    padding-right: 12px;
+    color: #484848;
+  }
+  
+  .guestCaption {
+    margin-top: 20px; 
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.2px;
+    word-wrap: break-word;
+    font-weight: 300;
+  }
+
+  .close {
+    color: #008489;
+    cursor: pointer;
+    font-size: 19px;
+    font-weight: normal;
+    user-select: auto;
+  }
+
+
+  /* plus minus icons for guest drop down menu  */
+
+  .iconGroup {    
+    display: table;
+    width: 120px;
+    vertical-align: middle;
+  }
+
+  .icon {
+      display: inline-block;
+      cursor: pointer;
+      border-radius: 50%; 
+      text-align: center;
+      line-height: 1;
+      position: relative;
+      -ms-touch-action: manipulation;
+      touch-action: manipulation;
+      border-style: solid;
+      border-color: #008489;
+      background: transparent;
+      width: 32px;
+      height: 32px;
+      border-width: 1px;
+      fill: currentcolor;
+  }
+
+  .icon.plus {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+  }
+
+  .icon.minus {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+  }
+  
+  rect {
+    color: #008489;
+    font-size: 16px;
+  }
+
+
+/* booking button */
+
+.button {
+  margin-top: 10px;
+  cursor: pointer;
+  transition:  background 0.2s, border-color 0.2s;
+  position: relative;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 4px;
+  width: 100%;
+  font-size: 19px;
+  line-height: 22px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: #ffffff;
+  font-weight: 700;
+  border-width: 2px;
+  border-style: solid;
+  padding-right: 24px;
+  padding-left: 24px;
+  min-width: 77.66px;
+  background: #FF5A5F;
+  border-color: transparent;
+}
+
+
+/* sliding menu for location  */
+
+.findingGroup {
+  background-image: url(https://s3-us-west-1.amazonaws.com/fantasybnb-mo/diamond.svg);
+  transition: margin-top 0.4s;
+  background-repeat: no-repeat;
+  background-position: center right;
+  background-size: 48px;
+  overflow: hidden !important;
+  transition: max-height 0.8s, opacity 0.8s linear 0.2s !important;
+    -webkit-transition: max-height 0.8s, opacity 0.8s linear 0.2s !important;
+    -moz-transition: max-height 0.8s, opacity 0.8s linear 0.2s !important;
+}
+
+.findCaption {
+  min-height: 34px ;
+  width: 84%;
+}
+
+.find {
+  font-weight: 800;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.2px;
+  word-wrap: break-word;
+}
+
+.finding {
+  margin-top: 6px;
+  font-weight: 300;
+  font-size: 15px;
+}
+
+
+
+.dates {
+  margin-left: 10px;
+}
+
+
+.prices {
+  margin-top: 5px;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+.strong {
+  font-weight: 800;
+}
+
+.info {
+  text-align: center;
+  display: block;
+}
