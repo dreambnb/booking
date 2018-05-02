@@ -1,55 +1,60 @@
 const faker = require('faker');
 const db = require('./index.js');
+const fs = require('fs');
 
-let room_id = 1;
+// let listing = {
+//   room_id: room_id,
+//   room_name: faker.address.streetAddress(),
+//   room_rate: Math.floor(Math.random() * 500),
+//   host_name: faker.name.firstName(),
+//   guest_name: faker.name.firstName(),
+//   review_count: Math.floor(Math.random() * 200),
+//   review_grade: +(Math.random() * 5).toFixed(2),
+// }
 
-// let room_name= faker.address.streetAddress(); // random contact card containing many properties
-// let room_rate = Math.floor(Math.random() * 500);
-// let host_name = faker.name.firstName(); // Rowan Nikolaus
-// let guest_name = faker.name.firstName(); 
+const generateData = () => {
+  const listing = {};
+  let text = '';
 
-let listing = {
-  room_id: room_id,
-  room_name: faker.address.streetAddress(),
-  room_rate: Math.floor(Math.random() * 500),
-  host_name: faker.name.firstName(),
-  guest_name: faker.name.firstName(), 
-  review_count: Math.floor(Math.random() * 200),
-  review_grade: +(Math.random() * 5).toFixed(2)
-}
+  for (let t = 999; t >=0; t--) {
+    text = '';
 
-// console.log(db.create(listing));
+    for (let i = 10000; i > 0; i--) {
+      listing.room_id = (t * 10000) + i;
+      listing.room_name = faker.address.streetAddress();
+      listing.room_rate = Math.floor(Math.random() * 500);
+      listing.host_name = faker.name.firstName();
+      listing.guest_name = faker.name.firstName();
+      listing.review_count = Math.floor(Math.random() * 200);
+      listing.review_grade = +(Math.random() * 5).toFixed(2);
 
-
-
-for (let i=0; i<1000; i++) {
-  let collection = [];
-  for (let t=0; t<10000; t++) {
-    let listing = {
-      room_id: t,
-      room_name: faker.address.streetAddress(),
-      room_rate: Math.floor(Math.random() * 500),
-      host_name: faker.name.firstName(),
-      guest_name: faker.name.firstName(), 
-      review_count: Math.floor(Math.random() * 200),
-      review_grade: +(Math.random() * 5).toFixed(2)
-    };
-
-    let listingDoc = db.create(listing);
-    collection.push(listingDoc);
-
-    
-  
-  }
-  db.save(collection, (err, rooms) => {
-    if (err) {
-      console.log('err', err);
-    } else {
-      console.log('success', i)
+      text += `${JSON.stringify(listing)}\n`;
     }
-  })
+
+
+    try {
+      fs.appendFileSync('./seedData.json', text);
+    } catch (err) {
+      /* Handle the error */
+      console.log('err', err);
+    }
+  }
+};
+
+generateData();
+
+
+const writeToMongo = () => {
+
+
 
 }
+
+// fs.writeFile('./seedData.txt', text, 'utf8', (err) => {
+//   if (err) throw err;
+//   console.log('The file has been saved!');
+
+// })
 
 
 // room_id: Number,
@@ -60,7 +65,7 @@ for (let i=0; i<1000; i++) {
 // booked_dates: [String], // store booked dates in an array
 // // in the future, booked_dates can be [checkin, checkout, guestnumber]
 // guest_number: Number, //not used
-// guest_name: String, 
+// guest_name: String,
 // host_name: String,
 // discount: Boolean, //not used
 // cleaning_fee: Boolean,
@@ -69,4 +74,4 @@ for (let i=0; i<1000; i++) {
 // // rare = true or false ?
 // created_date: { type: Date, default: Date.now },
 
-//mlab versus mongo? 
+// mlab versus mongo?

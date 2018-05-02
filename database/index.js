@@ -2,9 +2,12 @@
 const mongoose = require('mongoose');
 
 // mongoose.connect(`mongodb://${config.DB_ID}:${config.DB_PASSWORD}@ds141889.mlab.com:41889/booking`);
-mongoose.connect('mongodb://127.0.0.1:27017');
+mongoose.connect('mongodb://127.0.0.1:27017/dreambnb');
+
 
 const db = mongoose.connection;
+
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', () => {
   console.log('DB Connected!');
@@ -24,26 +27,7 @@ const bookingSchema = mongoose.Schema({
 });
 
 // create a model for the schema
-const Room = mongoose.model('room', bookingSchema);
-
-const save = (rooms, callback) => {
-  
-  Room.insertMany(rooms, (err, rooms) => {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, rooms);
-    }
-    
-  })
-
-};
-
-const create = (room) => {
-  return new Room(room);
-
-}
-
+const Room = mongoose.model('room', bookingSchema, 'listings');
 
 // adding booking dates to DB (only booked_dates)
 const update = (data, callback) => {
@@ -85,6 +69,10 @@ const findOne = (id, callback) => {
   });
 };
 
+findOne(9999, (err, room) => {
+  console.log('here it is', err, room);
+});
+
 // Room.find((err, listings) => {
 //   if (err) {
 //     console.log('err', err);
@@ -94,8 +82,6 @@ const findOne = (id, callback) => {
 // });
 
 module.exports = {
-  create,
-  save,
   update,
   find,
   findOne,
