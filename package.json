@@ -55,6 +55,7 @@
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.7.0",
+    "faker": "^4.1.0",
     "grunt": "^1.0.2",
     "grunt-aws": "^0.6.2",
     "grunt-webpack": "^3.1.1",

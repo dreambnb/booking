@@ -43,6 +43,7 @@ class Booking extends React.Component {
 
     axios.get(`${url}/booking/${this.state.room.room_id}`)
       .then((items) => {
+        console.log('here is res', items.data);
         this.setState({ room: items.data });
       })
       .catch(err => console.error(err));

@@ -1,13 +1,8 @@
 // create a connection
 const mongoose = require('mongoose');
 
-// import db credentials
-const config = require('../config/mlabConfig.js');
-
-mongoose.connect(`mongodb://${config.DB_ID}:${config.DB_PASSWORD}@ds141889.mlab.com:41889/booking`);
-
-// To connect the db in the shell
-// mongo ds141889.mlab.com:41889/booking -u <dbuser> -p <dbpassword>
+// mongoose.connect(`mongodb://${config.DB_ID}:${config.DB_PASSWORD}@ds141889.mlab.com:41889/booking`);
+mongoose.connect('mongodb://127.0.0.1:27017');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -20,25 +15,34 @@ const bookingSchema = mongoose.Schema({
 
   room_id: Number,
   room_name: String,
-  world_name: String,
-  keywords: String,
   room_rate: Number,
   booked_dates: [String], // store booked dates in an array
-  // in the future, booked_dates can be [checkin, checkout, guestnumber]
-  guest_number: Number,
-  guest_name: String,
+  guest_name: String, 
   host_name: String,
-  discount: Boolean,
-  cleaning_fee: Boolean,
   review_count: Number,
   review_grade: Number,
-  // rare = true or false ?
-  created_date: { type: Date, default: Date.now },
-
 });
 
 // create a model for the schema
 const Room = mongoose.model('room', bookingSchema);
+
+const save = (rooms, callback) => {
+  
+  Room.insertMany(rooms, (err, rooms) => {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, rooms);
+    }
+    
+  })
+
+};
+
+const create = (room) => {
+  return new Room(room);
+
+}
 
 
 // adding booking dates to DB (only booked_dates)
@@ -81,7 +85,17 @@ const findOne = (id, callback) => {
   });
 };
 
+// Room.find((err, listings) => {
+//   if (err) {
+//     console.log('err', err);
+//   } else {
+//     console.log('here are the listings', listings);
+//   }
+// });
+
 module.exports = {
+  create,
+  save,
   update,
   find,
   findOne,

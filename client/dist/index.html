@@ -17,12 +17,12 @@
   <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
   <script src="./bundle.min.js"></script>
   <script>
-    // let id = (window.location.pathname.split('/rooms')[1]).split('/')[1];
+  let id = window.location.pathname.split('/')[1];
     
     ReactDOM.render(
       React.createElement(Booking, {
         // room id is hardcoded for testing
-        room: 5
+        room: id
       }),
       document.getElementById('booking')
     );
