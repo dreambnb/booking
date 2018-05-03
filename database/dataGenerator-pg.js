@@ -37,4 +37,4 @@ const generateData = () => {
   }
 };
 
-generateData();
+// generateData();
