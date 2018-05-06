@@ -1,5 +1,4 @@
 const faker = require('faker');
-const db = require('./index.js');
 const fs = require('fs');
 
 function addDays(date, days) {
