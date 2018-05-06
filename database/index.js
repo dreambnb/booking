@@ -69,9 +69,9 @@ const findOne = (id, callback) => {
   });
 };
 
-findOne(9999, (err, room) => {
-  console.log('here it is', err, room);
-});
+// findOne(9999, (err, room) => {
+//   console.log('here it is', err, room);
+// });
 
 // Room.find((err, listings) => {
 //   if (err) {
