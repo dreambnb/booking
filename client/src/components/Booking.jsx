@@ -14,7 +14,7 @@ class Booking extends React.Component {
     this.state = {
       scrolled: false,
       room: {
-        room_id: this.props.room,
+        room_id: this.props.room
       },
     };
     this.handleScroll = this.handleScroll.bind(this);

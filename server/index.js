@@ -5,6 +5,10 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 
+const morgan = require('morgan');
+app.use(morgan('dev'));
+
+
 const path = require('path');
 const port = process.env.PORT || 7777;
 const responseTime = require('response-time');
@@ -28,10 +32,10 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 // serve client files
-app.use('/:id', express.static(path.join(__dirname, '/../client/dist')));
+app.use('/:room_id', express.static(path.join(__dirname, '/../client/dist')));
 
 // import DB
-const db = require('../database');
+const db = require('../database/indexPG.js');
 
 // GET request
 app.get('/booking/:room_id', (req, res) => {

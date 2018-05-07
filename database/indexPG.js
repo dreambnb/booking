@@ -28,6 +28,7 @@ const enumerateDaysBetweenDates = (startDate, endDate) => {
 
 
 const findOne = (id, callback) => {
+  console.log('getting called in here!');
   const today = new Date().toISOString();
   const end = moment().add(365, 'days').toISOString();
   client.query(`select * from bookings where listing_id = ${id} and checkout BETWEEN to_date('${today}', 'YYYY-MM-DD') AND to_date('${end}','YYYY-MM-DD')`, (err, res) => {
