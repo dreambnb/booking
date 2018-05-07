@@ -1,0 +1,13 @@
+config:
+  target: "http://localhost:7777"
+  phases:
+    - duration: 20
+      arrivalCount: 5
+scenarios:
+  - name: "Browsing"
+    flow:
+    - loop:
+      - get:
+          url: "/{{ $loopCount }}"
+          count: 100
+

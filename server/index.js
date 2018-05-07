@@ -1,4 +1,6 @@
 // connect express
+require('newrelic');
+
 const express = require('express');
 const app = express();
 // CORS
@@ -7,7 +9,6 @@ app.use(cors());
 
 const morgan = require('morgan');
 app.use(morgan('dev'));
-
 
 const path = require('path');
 const port = process.env.PORT || 7777;
