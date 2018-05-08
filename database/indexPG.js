@@ -28,7 +28,6 @@ const enumerateDaysBetweenDates = (startDate, endDate) => {
 
 
 const findOne = (id, callback) => {
-  console.log('getting called in here!');
   const today = new Date().toISOString();
   const end = moment().add(365, 'days').toISOString();
   client.query(`select * from bookings where listing_id = ${id} and checkout BETWEEN to_date('${today}', 'YYYY-MM-DD') AND to_date('${end}','YYYY-MM-DD')`, (err, res) => {
@@ -53,6 +52,21 @@ const findOne = (id, callback) => {
   });
 };
 
+const update = (data, callback) => {
+  let checkin = data.checkin;
+  let checkout = data.checkout;
+  let query = `INSERT INTO bookings (user_id, checkin, checkout, length, listing_id)
+  VALUES (${data.user_id}, '${checkin}', '${checkout}', ${data.length}, ${data.listing_id})`;
+  client.query(query, (err, res) => {
+    if (err) {
+      callback(err.stack, null);
+    } else {
+      const room = res.rows[0];
+      callback(null, room);
+    }
+  });
+};
+
 // findOne(9999978);
 
 // const findOne = (id, callback) => {
@@ -64,32 +78,6 @@ const findOne = (id, callback) => {
 //     callback(null, room);
 //   });
 // };
-
-const update = (data, callback) => {
-
-  let checkin = data.checkin;
-  let checkout = data.checkout;
-  console.log('checkin', typeof checkin);
-
-
-
-  let query = `INSERT INTO bookings (user_id, checkin, checkout, length, listing_id)
-  VALUES (${data.user_id}, '${checkin}', '${checkout}', ${data.length}, ${data.listing_id})
-  `;
-  console.log('here is data', data);
-  console.log('here is query', query);
-
-
-  client.query(query, (err, res) => {
-    if (err) {
-      callback(err.stack, null);
-    } else {
-      const room = res.rows[0];
-      callback(null, room);
-    }
-  });
-};
-
 
 
 // const results = enumerateDaysBetweenDates(startDate, endDate);

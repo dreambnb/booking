@@ -39,12 +39,8 @@ app.use(bodyParser.json());
 app.use('/:room_id', express.static(path.join(__dirname, '/../client/dist')));
 
 
-
 // GET request
 app.get('/booking/:room_id', (req, res) => {
-
-  console.log('made a get request!!');
-
   // get the room id parameter in the URL
   let id = req.params.room_id;
   // use the redis client to get room info from redis cache
@@ -91,7 +87,6 @@ app.get('/booking/:room_id', (req, res) => {
 
 // POST request
 app.post('/booking', (req, res) => {
-  console.log('data in server', req.body);
   db.update(req.body, (error, data) => {
     if (error) {
       res.sendStatus(404);
