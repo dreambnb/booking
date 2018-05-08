@@ -65,13 +65,39 @@ const findOne = (id, callback) => {
 //   });
 // };
 
+const update = (data, callback) => {
+
+  let checkin = data.checkin;
+  let checkout = data.checkout;
+  console.log('checkin', typeof checkin);
+
+
+
+  let query = `INSERT INTO bookings (user_id, checkin, checkout, length, listing_id)
+  VALUES (${data.user_id}, '${checkin}', '${checkout}', ${data.length}, ${data.listing_id})
+  `;
+  console.log('here is data', data);
+  console.log('here is query', query);
+
+
+  client.query(query, (err, res) => {
+    if (err) {
+      callback(err.stack, null);
+    } else {
+      const room = res.rows[0];
+      callback(null, room);
+    }
+  });
+};
+
+
 
 // const results = enumerateDaysBetweenDates(startDate, endDate);
 // console.log(results);
 // console.log('year',  moment().add(365, 'days').toISOString())
 
 module.exports = {
-  // update,
+  update,
   findOne,
 };
 

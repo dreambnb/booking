@@ -4,8 +4,6 @@ import StarRatings from 'react-star-ratings';
 
 const Stars = ({ room }) => {
   const ratingNum = Number(room.review_grade);
-  console.log(room.review_grade)
-  console.log(ratingNum);
   return (
   <div>
     <span> <StarRatings
