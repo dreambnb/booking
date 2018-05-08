@@ -125,9 +125,11 @@ export default class Form extends React.Component {
   // Send booking request to the server
   sendBookingRequest() {
     const data = {
-      id: this.state.roomId,
-      booked: this.state.booked,
-      guest_name: 'Mo',
+      listing_id: this.state.roomId,
+      checkin: this.state.booked[0],
+      checkout: this.state.booked[this.state.booked.length-1],
+      length: this.state.booked.length-1,
+      user_id: 1,
     };
 
     axios.post('/booking', data)
