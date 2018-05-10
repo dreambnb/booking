@@ -8,6 +8,6 @@ scenarios:
     flow:
     - loop:
       - get:
-          url: "/{{ $loopCount }}"
-          count: 100
+          url: "/{{ $randomNumber(1,10000000) }}"
+          count: 5
 
