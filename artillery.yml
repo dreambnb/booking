@@ -2,12 +2,12 @@ config:
   target: "http://localhost:7777"
   phases:
     - duration: 20
-      arrivalCount: 20
+      arrivalRate: 1
 scenarios:
   - name: "Browsing"
     flow:
     - loop:
       - get:
-          url: "/booking/{{ $loopCount }}"
-          count: 5
+          url: "/booking/{{ $randomNumber(1,10000000) }}"
+          count: 2
 

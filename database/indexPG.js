@@ -30,24 +30,32 @@ const enumerateDaysBetweenDates = (startDate, endDate) => {
 const findOne = (id, callback) => {
   const today = new Date().toISOString();
   const end = moment().add(365, 'days').toISOString();
-  client.query(`select * from bookings where listing_id = ${id} and checkout BETWEEN to_date('${today}', 'YYYY-MM-DD') AND to_date('${end}','YYYY-MM-DD')`, (err, res) => {
+  client.query(`select * from rooms inner join bookings on bookings.listing_id=rooms.room_id where rooms.room_id =${id} and bookings.checkout BETWEEN to_date('${today}', 'YYYY-MM-DD') AND to_date('${end}','YYYY-MM-DD')`, (err, res) => {
     if (err) {
       callback(err.stack, null);
     } else {
-      let dates = [];
-      for (let i = 0; i < res.rows.length; i++) {
-        dates = dates.concat(enumerateDaysBetweenDates(res.rows[i].checkin, res.rows[i].checkout));
-      }
+      console.log('here are rows', res.rows);
 
-      client.query(`select * from rooms where room_id = ${id}`, (err, res) => {
-        if (err) {
-          callback(err.stack, null);
-        } else {
-          const room = res.rows[0];
-          room["booked_dates"] = dates;
-          callback(null, room);
+      if (res.rows.length < 1) {
+
+        client.query(`select * from rooms where room_id = ${id}`, (err, res) => {
+          if (err) {
+            callback(err.stack, null);
+          } else {
+            const room = res.rows[0];
+            room["booked_dates"] = [];
+            callback(null, room);
+          }
+        });
+      } else {
+        let dates = [];
+        for (let i = 0; i < res.rows.length; i++) {
+          dates = dates.concat(enumerateDaysBetweenDates(res.rows[i].checkin, res.rows[i].checkout));
         }
-      });
+        const room = res.rows[0];
+        room["booked_dates"] = dates;
+        callback(null, room);
+      }
     }
   });
 };
