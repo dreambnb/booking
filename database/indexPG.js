@@ -1,7 +1,7 @@
 const { Client } = require('pg');
 const moment = require('moment');
 
-const defaultConnection = process.env.DATABASE_URL || 'postgres://localhost:5432/dreambnb';
+const defaultConnection =  process.env['DATABASE_URL'] || 'postgres://localhost:5432/dreambnb';
 // const query = require('../helpers/createdb');
 
 // pools will use environment variables
