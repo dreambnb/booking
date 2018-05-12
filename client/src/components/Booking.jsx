@@ -5,8 +5,9 @@ import Form from './Form.jsx';
 import Finding from './Finding.jsx';
 import { Container } from 'semantic-ui-react';
 import styles from '../styles.css';
-
 const axios = require('axios');
+
+// const CSS = styles._getCss();
 
 class Booking extends React.Component {
   constructor(props) {
@@ -81,8 +82,12 @@ class Booking extends React.Component {
   }
 
   render() {
+    // console.log('CSSSSSS', CSS);
+    // console.log('styles obj', styles);
 
     return (
+      <div>
+      {/* <style>{CSS}</style> */}
       <div id="container" onScroll={this.handleScroll} className={styles.container}>
         <div className={styles.component}>       
             { !this.state.room.room_rate ? 
@@ -108,6 +113,7 @@ class Booking extends React.Component {
           <span className={styles.info}>You won't be charged yet</span>
           <Finding scrolled={this.state.scrolled} room={this.state.room} />
         </div>
+      </div>
       </div>
 
 

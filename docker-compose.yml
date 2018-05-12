@@ -1,0 +1,33 @@
+version: '3'
+services:
+  bookings:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+       - DATABASE_URL= postgres://postgres:5432/dreambnb
+    ports:
+      - "8080:8080"
+  # redis: 
+  #   image: redis:alpine
+  #   command: ["redis-server", "--appendonly", "yes"]
+  #   hostname: redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   restart: always
+  # redis:
+  #   image: redis:latest
+  #   ports:
+  #     - "6378"
+  postgres:
+     image: postgres
+     ports:
+      - "5432:5432"
+    
+# networks:
+#   redis-net:
+#      driver: bridge
+# volumes:
+#   redis-data:
