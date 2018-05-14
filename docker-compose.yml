@@ -1,33 +1,27 @@
-version: '3'
+version: "3"
 services:
-  bookings:
-    build: .
-    depends_on:
-      - postgres
+  redis:
+    image: redis
+    networks: 
+      - webnet
+  db: 
+    image: postgres
+    networks:
+      - webnet
     environment:
-       - DATABASE_URL= postgres://postgres:5432/dreambnb
+      POSTGRES_DB: dreambnb
+  web:
+    # replace username/repo:tag with your name and image details
+    image: booking
     ports:
-      - "8080:8080"
-  # redis: 
-  #   image: redis:alpine
-  #   command: ["redis-server", "--appendonly", "yes"]
-  #   hostname: redis
-  #   ports:
-  #     - "6379:6379"
-  #   volumes:
-  #     - redis-data:/data
-  #   restart: always
-  # redis:
-  #   image: redis:latest
-  #   ports:
-  #     - "6378"
-  postgres:
-     image: postgres
-     ports:
-      - "5432:5432"
-    
-# networks:
-#   redis-net:
-#      driver: bridge
-# volumes:
-#   redis-data:
+      - "7777:7777"
+    networks:
+      - webnet
+    depends_on:
+      - redis
+      - db
+    environment:
+      DB_HOST: db
+      REDIS_HOST: redis
+networks:
+  webnet:
