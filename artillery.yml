@@ -1,13 +1,28 @@
 config:
-  target: "http://localhost:7777"
+  # target: "http://ec2-54-146-77-242.compute-1.amazonaws.com"
+  # target: "http://localhost:7777"
+  target: "http://ec2-54-67-34-38.us-west-1.compute.amazonaws.com"
+  http:
+    pool: 20
   phases:
-    - duration: 20
-      arrivalCount: 20
+    - duration: 60
+      arrivalRate: 10
 scenarios:
-  - name: "Browsing"
+  - name: "Random browsing"
     flow:
-    - loop:
-      - get:
-          url: "/{{ $randomNumber(1,10000000) }}"
-          count: 5
+      - loop:
+        - get:
+            url: "/images/{{ $randomNumber(1,10000000) }}"
+            count: 5
+    weight: 25
+  - name: "Freq used"
+    flow:
+     - loop:
+        - get:
+            url: "/images/9999999"
+            count: 10
+        - get:
+            url: "/images/9999978"
+            count: 10
+    weight: 75
 
