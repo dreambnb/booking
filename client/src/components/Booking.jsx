@@ -36,7 +36,7 @@ class Booking extends React.Component {
   // Fetch this page's room data
   getRoomData() {
     // webpack -p => 'production' & webpack -d => 'development' env swtich
-    const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-184-72-109-180.compute-1.amazonaws.com' : 'http://localhost:7777'; 
+    const url = (process.env.NODE_ENV === 'production') ? 'http://ec2-54-146-77-242.compute-1.amazonaws.com' : 'http://localhost:7777'; 
   
     if (process.env.NODE_ENV !== 'production') {
        console.log('Looks like we are in development mode!');
@@ -87,7 +87,7 @@ class Booking extends React.Component {
 
     return (
       <div>
-      {/* <style>{CSS}</style> */}
+      <style>{CSS}</style>
       <div id="container" onScroll={this.handleScroll} className={styles.container}>
         <div className={styles.component}>       
             { !this.state.room.room_rate ? 

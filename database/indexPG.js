@@ -1,17 +1,16 @@
 const { Client } = require('pg');
 const moment = require('moment');
 
-const defaultConnection =  process.env['DATABASE_URL'] || 'postgres://localhost:5432/dreambnb';
-// const query = require('../helpers/createdb');
-
-// pools will use environment variables
-// for connection information
 const client = new Client({
-  connectionString: defaultConnection,
+  // host: process.env.DB_HOST || 'localhost',
+  host: 'mydb.cguytmskjm2m.us-east-1.rds.amazonaws.com',
+  user: 'jennqiao',
+  password: 'mypostgres',
+  database: 'dreambnb',
+  port: 5432,
 });
 
 client.connect();
-
 
 const enumerateDaysBetweenDates = (startDate, endDate) => {
   const dates = [];

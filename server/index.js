@@ -20,9 +20,13 @@ const db = require('../database/indexPG.js');
 
 // create a new redis client and connect to the local redis instance
 // For docker 
-// const client = redis.createClient('6379', '172.17.0.2');
+const client = redis.createClient('6379', '172.17.0.2');
 // For local
 // const client = redis.createClient();
+
+// const redisHost = process.env.REDIS_HOST || 'localhost';
+// const client = redis.createClient('6379', redisHost);
+
 
 // if an error occurs, print it to the console
 // client.on('error', (err) => {
@@ -40,48 +44,48 @@ app.use('/:room_id', express.static(path.join(__dirname, '/../client/dist')));
 
 
 // GET request
-// app.get('/booking/:room_id', (req, res) => {
-//   // get the room id parameter in the URL
-//   let id = req.params.room_id;
-//   // use the redis client to get room info from redis cache
-//   client.get(id, (error, result) => {
-//     if(result){
-//     // the result exists in cache - return it to our user immediately
-//     res.send(JSON.parse(result)); 
-//     } else {
-//       // if there's no cached room data, get it from db
-//       db.findOne(req.params.room_id, (error, data) => {
-//         if (error) {
-//           res.sendStatus(404);
-//           res.end(error);
-//         } else {
-//           // store the key-value pair (id: data) in cache with an expiry of 1 minute (60s)
-//           client.setex(id, 60, JSON.stringify(data));
-//           res.send(data);
-//         }
-//       });
-//     }
-//   });
-
-// });
-
-//without redis
 app.get('/booking/:room_id', (req, res) => {
   // get the room id parameter in the URL
   let id = req.params.room_id;
- 
+  // use the redis client to get room info from redis cache
+  client.get(id, (error, result) => {
+    if(result){
+    // the result exists in cache - return it to our user immediately
+    res.send(JSON.parse(result)); 
+    } else {
       // if there's no cached room data, get it from db
       db.findOne(req.params.room_id, (error, data) => {
         if (error) {
           res.sendStatus(404);
-          res.send(error);
+          res.end(error);
         } else {
           // store the key-value pair (id: data) in cache with an expiry of 1 minute (60s)
-          // client.setex(id, 60, JSON.stringify(data));
+          client.setex(id, 60, JSON.stringify(data));
           res.send(data);
         }
       });
+    }
+  });
+
 });
+
+// //without redis
+// app.get('/booking/:room_id', (req, res) => {
+//   // get the room id parameter in the URL
+//   let id = req.params.room_id;
+ 
+//       // if there's no cached room data, get it from db
+//       db.findOne(req.params.room_id, (error, data) => {
+//         if (error) {
+//           res.sendStatus(404);
+//           res.send(error);
+//         } else {
+//           // store the key-value pair (id: data) in cache with an expiry of 1 minute (60s)
+//           // client.setex(id, 60, JSON.stringify(data));
+//           res.send(data);
+//         }
+//       });
+// });
 
 
 // POST request
